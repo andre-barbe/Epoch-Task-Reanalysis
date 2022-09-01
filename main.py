@@ -1,16 +1,26 @@
-# This is a sample Python script.
+#Main program to do everything
+import pandas as pd
+import numpy as np
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+#Load Epoch data
+data_main = pd.read_csv("raw-data/Parameter, Compute and Data Trends in Machine Learning - NOTABLE ML SYSTEMS.csv")
+
+#Load funding data
+sheet_id = '1BiracEUOUOGI7QcmNHyg1YYKSar2xBpeCHYzABye-ZA'
+data_funding = pd.read_csv('https://docs.google.com/spreadsheets/d/' +
+                   sheet_id +
+                   '/export?gid=0&format=csv',
+                   # Set first column as rownames in data frame
+                   index_col=0
+                  )
+
+#Drop data from 2017 or earlier
+data_main = data_main[data_main['Year'] >= 2018]
+
+#merge data
+data_main = data_main.merge(data_funding,
+                            on="Organization(s)",
+                            how="outer")  # Outer merge keeps data that is in either
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+print("Program successfully completed")
