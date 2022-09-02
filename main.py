@@ -153,11 +153,8 @@ y=data_top_employees['Quantity']
 plt.scatter(x, y)
 
 #Calculate line
-#Calculates polynomial that fits
-#See https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html
 z = np.polyfit(x, y, 1)
 
-#Turn into line object
 #https://numpy.org/doc/stable/reference/generated/numpy.poly1d.html
 p = np.poly1d(z)
 
